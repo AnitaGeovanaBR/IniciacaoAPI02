@@ -26,7 +26,7 @@ namespace API.Controllers
             {
                 throw new Exception(ex.Message);
             }
-            
+
         }
 
         [HttpPost]
@@ -60,5 +60,16 @@ namespace API.Controllers
             }
 
         }
+        [HttpDelete("biblioteca/{idBiblioteca}")]
+        public IActionResult DeletarBiblioteca(Guid idBiblioteca)
+        {
+            var biblioteca = _bibliotecaRepository.DeletarBiblioteca(idBiblioteca);
+
+            if (biblioteca == null)
+                return NotFound();
+
+            return NoContent();
+        }
     }
+
 }

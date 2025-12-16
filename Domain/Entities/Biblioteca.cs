@@ -6,6 +6,7 @@ namespace Domain.Entities
     {
         [Key]
         public Guid IdBiblioteca { get; set; }
-        public string Nome { get; set; }
+        public string Nome { get; set; } = null!;
+
     }
 }

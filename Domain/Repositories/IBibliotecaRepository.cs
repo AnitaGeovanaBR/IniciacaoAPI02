@@ -7,5 +7,7 @@ namespace Domain.Repositories
         public Biblioteca? RecuperarBibliotecaPorId(Guid IdBiblioteca);
         public Biblioteca? CriarNovaBiblioteca(string NomeBiblioteca);
         public Biblioteca? AtualizarBiblioteca(Guid IdBiblioteca, string NomeBiblioteca);
+        public Biblioteca? DeletarBiblioteca(Guid IdBiblioteca);
+        
     }
 }

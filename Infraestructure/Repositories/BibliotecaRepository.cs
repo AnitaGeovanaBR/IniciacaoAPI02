@@ -46,5 +46,21 @@ namespace Infraestructure.Repositories
             }
             return null;
         }
+
+        public Biblioteca? DeletarBiblioteca(Guid idBiblioteca)
+        {
+            var biblioteca = _context.Biblioteca
+                .FirstOrDefault(b => b.IdBiblioteca == idBiblioteca);
+
+            if (biblioteca == null)
+                return null;
+
+            _context.Biblioteca.Remove(biblioteca);
+            _context.SaveChanges();
+
+            return biblioteca;
+        }
+  
+        
     }
 }
