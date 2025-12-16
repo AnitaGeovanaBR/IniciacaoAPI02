@@ -11,5 +11,8 @@ namespace Infraestructure.Data
         }
 
         public DbSet<Biblioteca> Biblioteca { get; set; }
+        public DbSet<Livro> Livros { get; set; }
+
     }
 }
+

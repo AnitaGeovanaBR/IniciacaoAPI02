@@ -1,4 +1,6 @@
+using Domain.Repositories;
 using Infraestructure.Data;
+using Infraestructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("biblioteca"));
 });
+
+builder.Services.AddTransient<IBibliotecaRepository, BibliotecaRepository>();
 
 var app = builder.Build();
 
