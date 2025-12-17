@@ -6,6 +6,10 @@ namespace Infraestructure.Repositories
 {
     public class BibliotecaRepository : IBibliotecaRepository
     {
+        public IEnumerable<Biblioteca> RecuperarTodas()
+        {
+            return _context.Biblioteca.ToList();
+        }
         private ApplicationDbContext _context;
         public BibliotecaRepository(ApplicationDbContext context)
         {
