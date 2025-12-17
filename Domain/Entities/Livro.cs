@@ -16,4 +16,5 @@ namespace Domain.Entities
         public string? Descricao { get; set; }
         public DateTime DataPublicacao { get; set; }
     }
+
 }

@@ -16,7 +16,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route("livro/{idLivro}")]
+        [Route("RecuperarLivro/{idLivro}")]
         [Produces("application/json")]
         public ActionResult<Livro> RecuperarLivroPorId(Guid idLivro)
         {
@@ -29,35 +29,30 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route("livro")]
+        [Route("CriarLivro")]
         [Produces("application/json")]
-        public Livro? CriarNovoLivro(
-            string Nome,
-            string Autor,
-            string Edicao,
-            string Editora,
-            string ISBN,
-            string? Descricao,
-            DateTime DataPublicacao)
-                {
-                    Livro novo = new()
-                    {
-                        IdLivro = Guid.NewGuid(),
-                        Nome = Nome,
-                        Autor = Autor,
-                        Edicao = Edicao,
-                        Editora = Editora,
-                        ISBN = ISBN,
-                        Descricao = Descricao,
-                        DataPublicacao = DataPublicacao
-                    };
+        public ActionResult<Livro> CriarNovoLivro([FromBody] CriarLivroCommand livro)
+        {
+            var novo = _livroRepository.CriarNovoLivro(
+                livro.Nome,
+                livro.Autor,
+                livro.Edicao,
+                livro.Editora,
+                livro.ISBN,
+                livro.Descricao,
+                livro.DataPublicacao
+            );
 
-                    return novo;
-                }
+            return CreatedAtAction(
+                nameof(RecuperarLivroPorId),
+                new { idLivro = novo.IdLivro },
+                novo
+            );
+        }
 
 
         [HttpPut]
-        [Route("livro/{idLivro}")]
+        [Route("AttLivro/{idLivro}")]
         [Produces("application/json")]
         public IActionResult AtualizarLivro(
      [FromBody] CriarLivroCommand livro,
@@ -88,7 +83,7 @@ namespace API.Controllers
         }
 
 
-        [HttpDelete("livro/{idLivro}")]
+        [HttpDelete("DelLivro/{idLivro}")]
         public IActionResult DeletarLivro(Guid idLivro)
         {
             var livro = _livroRepository.DeletarLivro(idLivro);
