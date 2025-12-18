@@ -12,7 +12,6 @@ namespace Domain.Entities
         public string Editora { get; set; } = null!;
         public string ISBN { get; set; } = null!;
         public string? Descricao { get; set; }
-        public DateTime DataPublicacao { get; set; } 
-
+        public DateTime DataPublicacao { get; set; }
     }
 }

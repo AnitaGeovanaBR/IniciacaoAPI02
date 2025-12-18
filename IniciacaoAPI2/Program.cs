@@ -1,5 +1,7 @@
 using Infraestructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Domain.Repositories;
+using Infraestructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("biblioteca"));
 });
 
+builder.Services.AddScoped<IBibliotecaRepository, BibliotecaRepository>();
+builder.Services.AddScoped<ILivroRepository, LivroRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
