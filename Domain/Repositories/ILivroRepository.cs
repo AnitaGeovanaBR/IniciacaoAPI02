@@ -4,9 +4,29 @@ namespace Domain.Repositories
 {
     public interface ILivroRepository
     {
-        public Livro? RecuperarLivroPorId(Guid IdLivro);
-        public Livro? CriarNovoLivro(string NomeLivro, string AutorLivro, string EdicaoLivro, string EditoraLivro, string ISBNLivro, string DescricaoLivro, DateTime DatapublicacaoLivro);
-        public Livro? AtualizarLivro(Guid IdLivro,string NomeLivro, string AutorLivro, string EdicaoLivro, string EditoraLivro, string ISBNLivro, string DescricaoLivro, DateTime DatapublicacaoLivro);
-        public Livro? DeletarLivro(Guid IdLivro);
+        IEnumerable<Livro> RecuperarTodos();
+
+        Livro? RecuperarLivroPorId(Guid idLivro);
+
+        Livro? CriarNovoLivro(
+            string nome,
+            string autor,
+            string edicao,
+            string editora,
+            string isbn,
+            string? descricao,
+            DateTime dataPublicacao);
+
+        Livro? AtualizarLivro(
+            Guid idLivro,
+            string nome,
+            string autor,
+            string edicao,
+            string editora,
+            string isbn,
+            string? descricao,
+            DateTime dataPublicacao);
+
+        Livro? DeletarLivro(Guid idLivro);
     }
 }

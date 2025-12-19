@@ -1,25 +1,30 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
 using Infraestructure.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infraestructure.Repositories
 {
     public class LivroRepository : ILivroRepository
     {
-        private readonly ApplicationDbContext _context;
+        private ApplicationDbContext _context;
 
         public LivroRepository(ApplicationDbContext context)
         {
             _context = context;
         }
+
+        public IEnumerable<Livro> RecuperarTodos()
+        {
+            return _context.Livros.ToList();
+        }
+
         public Livro? RecuperarLivroPorId(Guid idLivro)
         {
             return _context.Livros
-                .AsNoTracking()
                 .FirstOrDefault(l => l.IdLivro == idLivro);
         }
-        public Livro CriarNovoLivro(
+
+        public Livro? CriarNovoLivro(
             string nome,
             string autor,
             string edicao,
@@ -45,6 +50,7 @@ namespace Infraestructure.Repositories
 
             return novo;
         }
+
         public Livro? AtualizarLivro(
             Guid idLivro,
             string nome,
@@ -55,27 +61,28 @@ namespace Infraestructure.Repositories
             string? descricao,
             DateTime dataPublicacao)
         {
-            Livro? livro = _context.Livros
-                .FirstOrDefault(l => l.IdLivro == idLivro);
+            Livro? livro = RecuperarLivroPorId(idLivro);
 
-            if (livro == null)
-                return null;
+            if (livro != null)
+            {
+                livro.Nome = nome;
+                livro.Autor = autor;
+                livro.Edicao = edicao;
+                livro.Editora = editora;
+                livro.ISBN = isbn;
+                livro.Descricao = descricao;
+                livro.DataPublicacao = dataPublicacao;
 
-            livro.Nome = nome;
-            livro.Autor = autor;
-            livro.Edicao = edicao;
-            livro.Editora = editora;
-            livro.ISBN = isbn;
-            livro.Descricao = descricao;
-            livro.DataPublicacao = dataPublicacao;
+                _context.SaveChanges();
+                return livro;
+            }
 
-            _context.SaveChanges();
-
-            return livro;
+            return null;
         }
+
         public Livro? DeletarLivro(Guid idLivro)
         {
-            Livro? livro = _context.Livros
+            var livro = _context.Livros
                 .FirstOrDefault(l => l.IdLivro == idLivro);
 
             if (livro == null)
