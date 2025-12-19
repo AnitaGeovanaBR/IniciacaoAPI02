@@ -16,14 +16,12 @@ namespace IniciacaoAPI2.Controllers
             _context = context;
         }
 
-        // GET: api/biblioteca
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Biblioteca>>> GetBibliotecas()
         {
             return await _context.Biblioteca.ToListAsync();
         }
 
-        // GET: api/biblioteca/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Biblioteca>> GetBiblioteca(Guid id)
         {
@@ -37,11 +35,10 @@ namespace IniciacaoAPI2.Controllers
             return biblioteca;
         }
 
-        // POST: api/biblioteca
         [HttpPost]
         public async Task<ActionResult<Biblioteca>> PostBiblioteca(Biblioteca biblioteca)
         {
-            // Sempre gera um novo ID
+            
             biblioteca.IdBiblioteca = Guid.NewGuid();
 
             _context.Biblioteca.Add(biblioteca);
@@ -50,7 +47,7 @@ namespace IniciacaoAPI2.Controllers
             return CreatedAtAction("GetBiblioteca", new { id = biblioteca.IdBiblioteca }, biblioteca);
         }
 
-        // PUT: api/biblioteca/5
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBiblioteca(Guid id, Biblioteca biblioteca)
         {
@@ -80,7 +77,6 @@ namespace IniciacaoAPI2.Controllers
             return NoContent();
         }
 
-        // DELETE: api/biblioteca/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBiblioteca(Guid id)
         {
