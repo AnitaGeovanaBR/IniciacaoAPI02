@@ -46,22 +46,19 @@ namespace Infraestructure.Repositories
             }
             return null;
         }
-        public Biblioteca? ExcluirBiblioteca(Guid IdBiblioteca)
+        public Biblioteca? ExcluirBiblioteca(Guid idBiblioteca)
         {
-            Biblioteca? biblioteca = RecuperarBibliotecaPorId(IdBiblioteca);
-
-            if(biblioteca != null)
-            {
+            var biblioteca = _context.Biblioteca.FirstOrDefault(b => b.IdBiblioteca == idBiblioteca);
+            
+                if (biblioteca == null) return null;
                 _context.Biblioteca.Remove(biblioteca);
-                _context.SaveChanges();
+                _context.SaveChanges(); 
                 return biblioteca;
-            }
-            return null;
         }
 
-        public Biblioteca? RecuperarBiblioteca(Guid IdBiblioteca, string NomeBiblioteca)
+        public IEnumerable<Biblioteca> RecuperarTodasBibliotecas()
         {
-            return _context.Biblioteca.Where(x => x.IdBiblioteca == IdBiblioteca && x.Nome == NomeBiblioteca).FirstOrDefault();
+        return _context.Biblioteca.ToList();
         }
-    }
-}   
+    }   
+}

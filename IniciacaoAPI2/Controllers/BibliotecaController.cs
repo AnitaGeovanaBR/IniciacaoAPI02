@@ -48,7 +48,7 @@ namespace API.Controllers
         [HttpPut]
         [Route("biblioteca/{idBiblioteca}")]
         [Produces("application/json")]
-        public Biblioteca? CriarNova([FromBody] CriarBibliotecaCommand nomeBiblioteca, Guid idBiblioteca)
+        public Biblioteca? AtualizarBiblioteca([FromBody] CriarBibliotecaCommand nomeBiblioteca, Guid idBiblioteca)
         {
             try
             {
@@ -78,11 +78,11 @@ namespace API.Controllers
         [HttpGet]
         [Route("biblioteca/todas")]
         [Produces("application/json")]
-        public Biblioteca? RecuperarTodas(Guid idBiblioteca, string nomeBiblioteca)
+        public IEnumerable<Biblioteca>? RecuperarTodas() 
         {
             try
             {
-                return _bibliotecaRepository.RecuperarBiblioteca(idBiblioteca, nomeBiblioteca);
+                return _bibliotecaRepository.RecuperarTodasBibliotecas(); 
             }
             catch (Exception ex)
             {

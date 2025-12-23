@@ -52,11 +52,11 @@ namespace API.Controllers
         [HttpGet]
         [Route("livro/todos")]
         [Produces("application/json")]
-        public Livro? RecuperarTodos(string nomeLivro, Guid idLivro)
+        public IEnumerable<Livro>? RecuperarTodos()
         {
             try
             {
-                return _livroRepository.RecuperarLivro(idLivro, nomeLivro);
+                return _livroRepository.RecuperarTodosLivros();
             }
             catch (Exception ex)
             {

@@ -35,9 +35,9 @@ namespace Infraestructure.Repositories
         {
             return _context.Livros.Where(x => x.IdLivro == IdLivro).FirstOrDefault();
         }
-        public Livro? RecuperarLivro(Guid IdLivro, string NomeLivro)
+        public IEnumerable<Livro> RecuperarTodosLivros()
         {
-            return _context.Livros.Where(x => x.IdLivro == IdLivro && x.Nome == NomeLivro).FirstOrDefault();
+            return _context.Livros.ToList(); 
         }
         public Livro? AtualizarLivro(Guid IdLivro, string Nome, string Autor, string Edicao, string Editora, string ISBN, string? Descricao, DateTime DataPublicacao)
         {

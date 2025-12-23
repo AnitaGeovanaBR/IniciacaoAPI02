@@ -8,6 +8,6 @@ namespace Domain.Repositories
         public Biblioteca? CriarNovaBiblioteca(string NomeBiblioteca);
         public Biblioteca? AtualizarBiblioteca(Guid IdBiblioteca, string NomeBiblioteca);
         public Biblioteca? ExcluirBiblioteca(Guid IdBiblioteca);
-        public Biblioteca? RecuperarBiblioteca(Guid IdBiblioteca, string NomeBiblioteca);
+        public IEnumerable<Biblioteca> RecuperarTodasBibliotecas();
     }
 }
